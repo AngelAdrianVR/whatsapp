@@ -58,4 +58,23 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    //one to many relationship
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    //many to many relationship
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class)
+                    ->withPivot('color', 'active')
+                    ->withTimestamps();
+    }
 }
